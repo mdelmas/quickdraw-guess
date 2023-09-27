@@ -1,29 +1,20 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { getCurrentDimension, getDrawingSize } from '../utils/sizeUtils';
+import { getCurrentDimension } from '../../shared/helpers/drawing';
+import { Line } from '../../shared/interfaces/drawing.interface';
+
 import './Drawing.css';
 
-import bananaData from '../data/sample_banana.json';
-console.log(bananaData);
-// type Line = {
-//   x: number[];
-//   y: number[];
-//   t: number[];
-//   pathData: string;
-// };
+const margins = { top: 40, right: 40, bottom: 200, left: 40 };
 
-const lines = bananaData.drawing.map((line) => ({
-  x: line[0],
-  y: line[1],
-  t: line[2],
-  pathData: '',
-  duration: line[2][line[2].length - 1] - line[2][0],
-  start: line[2][0],
-}));
-const drawingSize = getDrawingSize(lines);
-
-const Drawing = () => {
+const Drawing = ({
+  lines,
+  drawingSize,
+}: {
+  lines: Line[];
+  drawingSize: { width: number; height: number };
+}) => {
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
   const [scale, setScale] = useState(1);
 
@@ -34,30 +25,40 @@ const Drawing = () => {
   }, []);
 
   useEffect(() => {
-    console.log('recalculating scale...');
     setScale(
       Math.min(
-        screenSize.width / drawingSize.width,
-        screenSize.height / drawingSize.height,
+        (screenSize.width - margins.right - margins.left) / drawingSize.width,
+        (screenSize.height - margins.top - margins.bottom) / drawingSize.height,
       ),
     );
   }, [screenSize]);
+
   const normalize = (x: number) => x * scale;
 
   lines.map((line) => {
-    line.pathData = `M ${normalize(line.x[0])} ${normalize(line.y[0])} `;
-    for (let i = 1; i < line.x.length; i++) {
-      line.pathData += `L ${normalize(line.x[i])} ${normalize(line.y[i])} `;
+    line.path = `M 
+      ${normalize(line.coord.x[0]) + margins.top} 
+      ${normalize(line.coord.y[0]) + margins.left} 
+    `;
+    for (let i = 1; i < line.coord.x.length; i++) {
+      line.path += `L 
+        ${normalize(line.coord.x[i]) + margins.top} 
+        ${normalize(line.coord.y[i]) + margins.left} 
+      `;
     }
   });
-  console.log(lines);
 
   return (
-    <svg>
+    <svg
+      style={{
+        width: drawingSize.width * scale + margins.right + margins.left,
+        height: drawingSize.height * scale + margins.top + margins.bottom,
+      }}
+    >
       {lines.map((line, i) => (
         <motion.path
           key={i}
-          d={line.pathData}
+          d={line.path}
           strokeLinecap="round"
           strokeLinejoin="round"
           initial={{ pathLength: 0, opacity: 0 }}

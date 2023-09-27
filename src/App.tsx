@@ -1,13 +1,23 @@
-import Drawing from './components/Drawing';
+import { Routes, Route } from 'react-router';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import Guess from './components/Guess';
+import Start from './components/Start';
 
 import './App.css';
 
-function App() {
+const App = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location);
+
   return (
-    <div>
-      <Drawing />
-    </div>
+    <Routes>
+      <Route path="/" Component={Start} />
+      <Route path="/guess" Component={Guess} />
+    </Routes>
   );
-}
+};
 
 export default App;

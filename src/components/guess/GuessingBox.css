@@ -1,0 +1,29 @@
+#guess {
+  background-color: whitesmoke;
+  padding: 20px 30px 30px 30px;
+
+  max-width: 400px;
+  width: 100%;
+
+  border-radius: 30px;
+
+  /* box-shadow: rgba(0, 0, 0, 1) 0px 7px 29px 0px; */
+  box-shadow: rgb(0, 0, 0) 0px 20px 30px -10px;
+}
+
+#guess h3 {
+  margin: 0 0 15px 0;
+  color: rgba(0, 0, 0, 0.87);
+  text-align: center;
+}
+
+#guess form {
+  display: flex;
+  flex-direction: row;
+  align-items: middle;
+
+  gap: 20px;
+}
+#guess form input {
+  flex-grow: 2;
+}

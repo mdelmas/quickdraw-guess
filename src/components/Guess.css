@@ -1,0 +1,40 @@
+#content {
+  min-width: 100vw;
+  min-height: 100vh;
+
+  padding: 40px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+}
+
+#drawing {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  padding-bottom: 100px;
+  box-sizing: border-box;
+
+  z-index: -1;
+}
+
+#timer {
+  color: white;
+  background-color: #535bf2;
+
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-radius: 15px;
+  width: 70px;
+
+  text-align: center;
+}
