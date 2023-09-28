@@ -17,7 +17,7 @@ export type GameState = {
   phase: GamePhase;
   round: number;
   score: number;
-  result?: ResultType;
+  result?: { type: ResultType };
 };
 
 export type State = {

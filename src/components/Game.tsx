@@ -20,29 +20,26 @@ import bananaData from '../data/sample_banana.json';
 import fishData from '../data/sample_fish.json';
 import { setHome } from '../shared/reducers/pageReducer';
 
-const drawings = {
-  airplane: airplaneData,
-  apple: appleData,
-  fish: fishData,
-  banana: bananaData,
-};
-const data = drawings.airplane;
-
-const lines = data.drawing.map((line) => ({
-  coord: {
-    x: line[0],
-    y: line[1],
-    t: line[2],
-  },
-  path: '',
-  duration: line[2][line[2].length - 1] - line[2][0],
-  start: line[2][0],
-}));
-const drawingSize = getDrawingSize(lines);
+const drawings = [airplaneData, appleData, fishData, bananaData];
 
 const Game = () => {
   const dispatch = useDispatch();
   const game = useSelector((state: State) => state.game);
+
+  console.log('random', Math.floor(Math.random() * drawings.length));
+  const data = drawings[Math.floor(Math.random() * drawings.length)];
+
+  const lines = data.drawing.map((line) => ({
+    coord: {
+      x: line[0],
+      y: line[1],
+      t: line[2],
+    },
+    path: '',
+    duration: line[2][line[2].length - 1] - line[2][0],
+    start: line[2][0],
+  }));
+  const drawingSize = getDrawingSize(lines);
 
   useEffect(() => {
     dispatch(startGuess());
@@ -68,7 +65,7 @@ const Game = () => {
       )}
       {game.phase === GamePhase.RESULT && (
         <Result
-          result={game.result}
+          result={game.result?.type}
           continueGame={continueGame}
           round={game.round}
         />

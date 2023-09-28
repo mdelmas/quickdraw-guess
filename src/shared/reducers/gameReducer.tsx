@@ -14,7 +14,6 @@ const gameSlice = createSlice({
       return initialState;
     },
     startGuess(state) {
-      console.log('startGuess', JSON.parse(JSON.stringify(state)));
       return { ...state, phase: GamePhase.GUESS };
     },
     endGuess(state, action) {
@@ -23,7 +22,9 @@ const gameSlice = createSlice({
       return {
         phase: GamePhase.RESULT,
         round: state.round + 1,
-        result: action.payload.result,
+        result: {
+          type: action.payload.result,
+        },
         score:
           action.payload.result === ResultType.SUCCESS
             ? state.score + 1
