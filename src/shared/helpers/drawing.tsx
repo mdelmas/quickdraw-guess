@@ -1,11 +1,11 @@
-import { Line } from '../interfaces/drawing.interface';
+import { Line, Size } from '../interfaces/drawing.interface';
 
 const getCurrentDimension = () => ({
   width: window.innerWidth,
   height: window.innerHeight,
 });
 
-const getDrawingSize = (lines: Line[]): { width: number; height: number } => {
+const getDrawingSize = (lines: Line[]): Size => {
   let width = 0,
     height = 0;
   lines.map((line: Line) => {

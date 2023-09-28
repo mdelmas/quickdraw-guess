@@ -1,22 +1,26 @@
-import { Routes, Route } from 'react-router';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import Guess from './components/Guess';
-import Start from './components/Start';
+import Home from './components/Home';
+import Game from './components/Game';
+import { startGuess } from './shared/reducers/gameReducer';
+import { Page, State } from './shared/interfaces/state.interface';
 
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 const App = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useDispatch();
+  const page = useSelector((state: State) => state.page);
 
-  console.log(location);
+  useEffect(() => {
+    dispatch(startGuess());
+  }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" Component={Start} />
-      <Route path="/guess" Component={Guess} />
-    </Routes>
+    <>
+      {page === Page.HOME && <Home />}
+      {page === Page.GAME && <Game />}
+    </>
   );
 };
 

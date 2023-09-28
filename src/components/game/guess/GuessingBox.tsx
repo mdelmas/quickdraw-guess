@@ -1,16 +1,21 @@
-import useField from '../../shared/hooks/useField';
+import useField from '../../../shared/hooks/useField';
 
 import './GuessingBox.css';
 
-const GuessingBox = ({ word }: { word: string }) => {
+const GuessingBox = ({
+  word,
+  handleSuccess,
+}: {
+  word: string;
+  handleSuccess: () => void;
+}) => {
   const guess = useField('text');
 
   const checkGuess = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    console.log(guess.value, word);
     if (guess.value === word) {
-      console.log('congrats !!');
+      handleSuccess();
     }
   };
 
