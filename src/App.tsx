@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Home from './components/Home';
 import Game from './components/Game';
@@ -6,7 +7,6 @@ import { startGuess } from './shared/reducers/gameReducer';
 import { Page, State } from './shared/interfaces/state.interface';
 
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();

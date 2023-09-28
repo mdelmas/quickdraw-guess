@@ -7,19 +7,25 @@ export enum Page {
 }
 
 export enum GamePhase {
-  START,
-  GUESS,
-  TRANSITION,
-  RESULT,
+  START = 0,
+  GUESS = 1,
+  RESULT = 2,
+  TOTAL = 3,
 }
 
 export type GameState = {
   phase: GamePhase;
   round: number;
-  // word: string;
+  score: number;
+  result?: ResultType;
 };
 
 export type State = {
   game: GameState;
   page: Page;
 };
+
+export enum ResultType {
+  SUCCESS = 0,
+  FAILURE = 1,
+}

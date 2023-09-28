@@ -1,17 +1,24 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 import { getDrawingSize } from '../shared/helpers/drawing';
-import { Page, State } from '../shared/interfaces/state.interface';
+import { State, GamePhase } from '../shared/interfaces/state.interface';
+import {
+  startGuess,
+  displayTotal,
+  resetGame,
+  ROUNDS,
+} from '../shared/reducers/gameReducer';
 
-import Guess from './components/Guess';
-import Success from './components/Success';
-import Failure from './components/Failure';
+import Guess from './game/Guess';
+import Result from './game/Result';
+import Total from './game/Total';
 
 import appleData from '../data/sample_airplane.json';
 import airplaneData from '../data/sample_airplane.json';
 import bananaData from '../data/sample_banana.json';
 import fishData from '../data/sample_fish.json';
-const data = fishData;
+import { setHome } from '../shared/reducers/pageReducer';
 
 const drawings = {
   airplane: airplaneData,
@@ -19,8 +26,7 @@ const drawings = {
   fish: fishData,
   banana: bananaData,
 };
-
-const ROUNDS = Object.keys(drawings).length;
+const data = drawings.airplane;
 
 const lines = data.drawing.map((line) => ({
   coord: {
@@ -36,16 +42,39 @@ const drawingSize = getDrawingSize(lines);
 
 const Game = () => {
   const dispatch = useDispatch();
-  const page = useSelector((state: State) => state.page);
+  const game = useSelector((state: State) => state.game);
 
-  const startGame = () => {
-    // setPage(Page.SUCCESS);
+  useEffect(() => {
+    dispatch(startGuess());
+  }, [dispatch]);
+
+  const continueGame = () => {
+    console.log('in continuegame', game);
+    if (game.round === ROUNDS) {
+      return dispatch(displayTotal());
+    }
+    dispatch(startGuess());
+  };
+
+  const endGame = () => {
+    dispatch(setHome());
+    dispatch(resetGame());
   };
 
   return (
-    <div id="startPage">
-      <button onClick={startGame}>Start</button>
-    </div>
+    <>
+      {game.phase === GamePhase.GUESS && (
+        <Guess word={data.word} lines={lines} drawingSize={drawingSize} />
+      )}
+      {game.phase === GamePhase.RESULT && (
+        <Result
+          result={game.result}
+          continueGame={continueGame}
+          round={game.round}
+        />
+      )}
+      {game.phase === GamePhase.TOTAL && <Total endGame={endGame} />}
+    </>
   );
 };
 

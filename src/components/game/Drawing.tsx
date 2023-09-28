@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { getCurrentDimension } from '../../../shared/helpers/drawing';
-import { Line } from '../../../shared/interfaces/drawing.interface';
+import { getCurrentDimension } from '../../shared/helpers/drawing';
+import { Line } from '../../shared/interfaces/drawing.interface';
 
 import './Drawing.css';
 

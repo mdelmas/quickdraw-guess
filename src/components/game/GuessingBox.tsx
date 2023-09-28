@@ -1,4 +1,4 @@
-import useField from '../../../shared/hooks/useField';
+import useField from '../../shared/hooks/useField';
 
 import './GuessingBox.css';
 

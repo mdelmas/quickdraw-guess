@@ -1,24 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { GamePhase } from '../interfaces/state.interface';
+import { GamePhase, ResultType } from '../interfaces/state.interface';
 
 export const ROUNDS = 4;
 
+const initialState = { phase: GamePhase.START, round: 0, score: 0 };
+
 const gameSlice = createSlice({
   name: 'game',
-  initialState: { phase: GamePhase.START, round: 0 },
+  initialState: initialState,
   reducers: {
-    startGuess(state) {
-      return { phase: GamePhase.GUESS, round: state.round + 1 };
+    resetGame() {
+      return initialState;
     },
-    endGuess(state) {
-      if (state.round === ROUNDS) {
-        return { phase: GamePhase.RESULT, round: 0 };
-      }
-      return { phase: GamePhase.TRANSITION, round: 1 };
+    startGuess(state) {
+      console.log('startGuess', JSON.parse(JSON.stringify(state)));
+      return { ...state, phase: GamePhase.GUESS };
+    },
+    endGuess(state, action) {
+      console.log('endGuess', action, JSON.parse(JSON.stringify(state)));
+
+      return {
+        phase: GamePhase.RESULT,
+        round: state.round + 1,
+        result: action.payload.result,
+        score:
+          action.payload.result === ResultType.SUCCESS
+            ? state.score + 1
+            : state.score,
+      };
+    },
+    displayTotal(state) {
+      return { ...state, phase: GamePhase.TOTAL };
     },
   },
 });
 
-export const { startGuess, endGuess } = gameSlice.actions;
+export const { resetGame, startGuess, endGuess, displayTotal } =
+  gameSlice.actions;
 export default gameSlice.reducer;

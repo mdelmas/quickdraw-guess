@@ -1,15 +1,16 @@
-import { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Page, PageContext } from '../PageContext';
-import { getDrawingSize } from '../shared/helpers/drawing';
+import { ResultType } from '../../shared/interfaces/state.interface';
+import { Line, Size } from '../../shared/interfaces/drawing.interface';
+import { endGuess } from '../../shared/reducers/gameReducer';
 
-import Drawing from './guess/Drawing';
-import GuessingBox from './guess/GuessingBox';
-import Timer from './guess/Timer';
+import Drawing from './Drawing';
+import GuessingBox from './GuessingBox';
+import Timer from './Timer';
 
 import './Guess.css';
-import { Line } from '../shared/interfaces/drawing.interface';
+
 const TIMER = 4;
 
 const Guess = ({
@@ -19,13 +20,11 @@ const Guess = ({
 }: {
   word: string;
   lines: Line[];
-  drawingSize: { width: number; height: number };
+  drawingSize: Size;
 }) => {
-  const { setPage } = useContext(PageContext);
+  const dispatch = useDispatch();
   const [timerInterval, setTimerInterval] = useState(0);
   const [time, setTime] = useState(0);
-
-  console.log('time', time);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,16 +35,15 @@ const Guess = ({
 
   const handleSuccess = () => {
     clearInterval(timerInterval);
-
-    // setPage(Page.SUCCESS);
+    dispatch(endGuess({ result: ResultType.SUCCESS }));
   };
 
   useEffect(() => {
     if (time === TIMER) {
       clearInterval(timerInterval);
-      // setPage(Page.FAILURE);
+      dispatch(endGuess({ result: ResultType.FAILURE }));
     }
-  }, [time]);
+  }, [time, dispatch, timerInterval]);
 
   return (
     <div id="drawingPage">
