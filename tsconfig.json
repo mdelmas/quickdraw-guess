@@ -18,8 +18,20 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": "./src", // This must be specified if "paths" is.
+    "paths": {
+      "@components/*": ["components/*"],
+      "@shared/*": ["shared/*"],
+      "@helpers/*": ["shared/helpers/*"],
+      "@hooks/*": ["shared/hooks/*"],
+      "@interfaces/*": ["shared/interfaces/*"],
+      "@reducers/*": ["shared/reducers/*"],
+      "@services/*": ["shared/services/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["./src/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

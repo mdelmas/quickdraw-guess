@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Page } from '../interfaces/state.interface';
+import { Page } from '@interfaces/state.interface';
 
 const pageSlice = createSlice({
   name: 'game',

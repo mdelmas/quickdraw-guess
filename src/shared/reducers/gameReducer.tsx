@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { GamePhase, ResultType } from '../interfaces/state.interface';
+import { GamePhase, ResultType } from '@interfaces/state.interface';
 
 export const ROUNDS = 4;
 

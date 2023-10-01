@@ -19,3 +19,18 @@ export type Word = {
   guessed: boolean;
   drawing: Line[];
 };
+
+export type DrawingData = {
+  word: string;
+  countrycode: string;
+  timestamp: string;
+  recognized: boolean;
+  drawing: number[][][];
+};
+
+export type Margins = {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};

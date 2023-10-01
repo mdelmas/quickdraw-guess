@@ -1,4 +1,4 @@
-import useField from '../../shared/hooks/useField';
+import useField from '@hooks/useField';
 
 import './GuessingBox.css';
 
@@ -9,6 +9,8 @@ const GuessingBox = ({
   word: string;
   handleSuccess: () => void;
 }) => {
+  console.log('rendering GuessingBox');
+
   const guess = useField('text');
 
   const checkGuess = (event: React.SyntheticEvent) => {

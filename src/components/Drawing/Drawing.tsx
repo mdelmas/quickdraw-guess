@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { getCurrentDimension } from '../../shared/helpers/drawing';
-import { Line } from '../../shared/interfaces/drawing.interface';
+import { getCurrentDimension, calculateScale } from '@helpers/drawing';
+import { Line, Size } from '@interfaces/drawing.interface';
 
 import './Drawing.css';
 
@@ -13,25 +13,25 @@ const Drawing = ({
   drawingSize,
 }: {
   lines: Line[];
-  drawingSize: { width: number; height: number };
+  drawingSize: Size;
 }) => {
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(
+    calculateScale(drawingSize, screenSize, margins),
+  );
+
+  console.log('rendering Drawing');
+
+  console.log('scale', scale);
+  console.log('screenSize', screenSize);
+  console.log('drawingSize', drawingSize);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       setScreenSize(getCurrentDimension());
+      setScale(calculateScale(drawingSize, screenSize, margins));
     });
   }, []);
-
-  useEffect(() => {
-    setScale(
-      Math.min(
-        (screenSize.width - margins.right - margins.left) / drawingSize.width,
-        (screenSize.height - margins.top - margins.bottom) / drawingSize.height,
-      ),
-    );
-  }, [screenSize]);
 
   const normalize = (x: number) => x * scale;
 
@@ -47,6 +47,8 @@ const Drawing = ({
       `;
     }
   });
+
+  // let linePath =
 
   return (
     <svg

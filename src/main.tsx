@@ -2,9 +2,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import App from './App.tsx';
-import gameReducer from './shared/reducers/gameReducer.tsx';
-import pageReducer from './shared/reducers/pageReducer.tsx';
+import App from '@components/App';
+import gameReducer from '@reducers/gameReducer.tsx';
+import pageReducer from '@reducers/pageReducer.tsx';
 
 import './index.css';
 

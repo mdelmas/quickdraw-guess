@@ -1,4 +1,4 @@
-import { Line, Size } from '../interfaces/drawing.interface';
+import { Line, Size, Margins } from '@interfaces/drawing.interface';
 
 const getCurrentDimension = () => ({
   width: window.innerWidth,
@@ -17,4 +17,37 @@ const getDrawingSize = (lines: Line[]): Size => {
   return { width, height };
 };
 
-export { getCurrentDimension, getDrawingSize };
+const getDrawingData = (drawing: number[][][]) => {
+  return drawing.map((line) => {
+    return {
+      coord: {
+        x: line[0],
+        y: line[1],
+        t: line[2],
+      },
+      path: '',
+      duration: line[2][line[2].length - 1] - line[2][0],
+      start: line[2][0],
+    };
+  });
+};
+
+const calculateScale = (
+  drawingSize: Size,
+  screenSize: Size,
+  margins: Margins,
+): number =>
+  Math.min(
+    (screenSize.width - margins.right - margins.left) / drawingSize.width,
+    (screenSize.height - margins.top - margins.bottom) / drawingSize.height,
+  );
+
+const getLinePath = () => {};
+
+export {
+  getCurrentDimension,
+  getDrawingSize,
+  getDrawingData,
+  calculateScale,
+  getLinePath,
+};

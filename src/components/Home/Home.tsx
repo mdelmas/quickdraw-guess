@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
 
-import { setGame } from '../shared/reducers/pageReducer';
+import { setGame } from '@reducers/pageReducer';
 
 const Home = () => {
+  console.log('rendering Home');
   const dispatch = useDispatch();
 
   const startGame = () => {

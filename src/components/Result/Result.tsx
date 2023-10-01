@@ -1,5 +1,5 @@
-import { ResultType } from '../../shared/interfaces/state.interface';
-import { ROUNDS } from '../../shared/reducers/gameReducer';
+import { ResultType } from '@interfaces/state.interface';
+import { ROUNDS } from '@reducers/gameReducer';
 
 const Result = ({
   result,
@@ -10,6 +10,8 @@ const Result = ({
   round: number;
   continueGame: () => void;
 }) => {
+  console.log('rendering Result');
+
   return (
     <div id="resultPage">
       {result === ResultType.SUCCESS && <h2>Success!</h2>}

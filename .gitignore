@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # large data files
-src/data/full/
+data/full/
