@@ -1,10 +1,10 @@
-export type Line = {
+export type LineData = {
   coord: {
     x: number[];
     y: number[];
     t: number[];
   };
-  path: string;
+  path?: string;
   duration: number;
   start: number;
 };
@@ -17,7 +17,7 @@ export type Size = {
 export type Word = {
   name: string;
   guessed: boolean;
-  drawing: Line[];
+  drawing: LineData[];
 };
 
 export type DrawingData = {
