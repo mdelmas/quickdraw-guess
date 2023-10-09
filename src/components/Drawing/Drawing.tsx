@@ -8,7 +8,7 @@ import {
   MARGINS,
 } from '@helpers/drawing';
 
-import Line from '@components/Line';
+import DrawingLine from './DrawingLine';
 
 import './Drawing.css';
 
@@ -38,7 +38,7 @@ const Drawing = ({ rawDrawingData }: { rawDrawingData: number[][][] }) => {
       }}
     >
       {drawingData.map((line, i) => (
-        <Line key={i} line={line} scale={scale} />
+        <DrawingLine key={i} line={line} scale={scale} />
       ))}
     </svg>
   );

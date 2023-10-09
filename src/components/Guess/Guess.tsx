@@ -7,8 +7,8 @@ import { endGuess } from '@reducers/gameReducer';
 import drawingsService from '@services/drawings';
 
 import Drawing from '@components/Drawing';
-import Timer from '@components/Timer';
-import GuessingBox from '@components/GuessingBox';
+import GuessTimer from './GuessTimer';
+import GuessBox from './GuessBox';
 
 import './Guess.css';
 
@@ -41,8 +41,8 @@ const Guess = () => {
   return (
     <div id="drawingPage">
       <div id="content">
-        <Timer handleTimerEnd={handleTimerEnd} />
-        <GuessingBox word={data.word} handleSuccess={handleSuccess} />
+        <GuessTimer handleTimerEnd={handleTimerEnd} />
+        <GuessBox word={data.word} handleSuccess={handleSuccess} />
       </div>
       <div id="drawing">
         <Drawing rawDrawingData={data.drawing} />

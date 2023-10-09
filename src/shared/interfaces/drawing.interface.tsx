@@ -4,7 +4,6 @@ export type LineData = {
     y: number[];
     t: number[];
   };
-  path?: string;
   duration: number;
   start: number;
 };

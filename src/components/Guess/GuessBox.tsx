@@ -1,8 +1,6 @@
 import useField from '@hooks/useField';
 
-import './GuessingBox.css';
-
-const GuessingBox = ({
+const GuessBox = ({
   word,
   handleSuccess,
 }: {
@@ -32,4 +30,4 @@ const GuessingBox = ({
   );
 };
 
-export default GuessingBox;
+export default GuessBox;
