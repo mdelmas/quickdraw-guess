@@ -15,10 +15,11 @@ const GuessingBox = ({
 
   const checkGuess = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    handleSuccess();
 
-    if (guess.value === word) {
-      handleSuccess();
-    }
+    // if (guess.value === word) {
+    //   handleSuccess();
+    // }
   };
 
   return (

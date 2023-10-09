@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { getCurrentDimension, calculateScale } from '@helpers/drawing';
+import {
+  getCurrentDimension,
+  calculateScale,
+  getLinePath,
+  normalize,
+} from '@helpers/drawing';
 import { Line, Size } from '@interfaces/drawing.interface';
 
 import './Drawing.css';
@@ -26,29 +31,26 @@ const Drawing = ({
   console.log('screenSize', screenSize);
   console.log('drawingSize', drawingSize);
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setScreenSize(getCurrentDimension());
-      setScale(calculateScale(drawingSize, screenSize, margins));
-    });
-  }, []);
+  // useEffect(() => {
+  // window.addEventListener('resize', () => {
+  //   setScreenSize(getCurrentDimension());
+  //   setScale(calculateScale(drawingSize, screenSize, margins));
+  // });
+  // }, []);
 
-  const normalize = (x: number) => x * scale;
-
-  lines.map((line) => {
-    line.path = `M 
-      ${normalize(line.coord.x[0]) + margins.top} 
-      ${normalize(line.coord.y[0]) + margins.left} 
-    `;
-    for (let i = 1; i < line.coord.x.length; i++) {
-      line.path += `L 
-        ${normalize(line.coord.x[i]) + margins.top} 
-        ${normalize(line.coord.y[i]) + margins.left} 
-      `;
-    }
-  });
-
-  // let linePath =
+  // lines.map((line) => {
+  //   line.path = `M
+  //     ${normalize(line.coord.x[0], scale) + margins.top}
+  //     ${normalize(line.coord.y[0], scale) + margins.left}
+  //   `;
+  //   for (let i = 1; i < line.coord.x.length; i++) {
+  //     line.path += `L
+  //       ${normalize(line.coord.x[i], scale) + margins.top}
+  //       ${normalize(line.coord.y[i], scale) + margins.left}
+  //     `;
+  //   }
+  // });
+  const path = getLinePath(lines, scale, margins);
 
   return (
     <svg
@@ -60,7 +62,7 @@ const Drawing = ({
       {lines.map((line, i) => (
         <motion.path
           key={i}
-          d={line.path}
+          d={path}
           strokeLinecap="round"
           strokeLinejoin="round"
           initial={{ pathLength: 0, opacity: 0 }}

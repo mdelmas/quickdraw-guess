@@ -42,7 +42,24 @@ const calculateScale = (
     (screenSize.height - margins.top - margins.bottom) / drawingSize.height,
   );
 
-const getLinePath = () => {};
+const normalize = (x: number, scale: number) => x * scale;
+
+const getLinePath = (lines: Line[], scale: number, margins: Margins) => {
+  let path = '';
+  lines.map((line) => {
+    path = `M 
+      ${normalize(line.coord.x[0], scale) + margins.top} 
+      ${normalize(line.coord.y[0], scale) + margins.left} 
+    `;
+    for (let i = 1; i < line.coord.x.length; i++) {
+      path += `L 
+        ${normalize(line.coord.x[i], scale) + margins.top} 
+        ${normalize(line.coord.y[i], scale) + margins.left} 
+      `;
+    }
+  });
+  return path;
+};
 
 export {
   getCurrentDimension,
@@ -50,4 +67,5 @@ export {
   getDrawingData,
   calculateScale,
   getLinePath,
+  normalize,
 };
