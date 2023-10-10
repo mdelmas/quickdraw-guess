@@ -18,13 +18,13 @@ const Guess = () => {
 
   console.log('rendering Guess', data?.word);
 
-  const fetchData = async () => {
-    const data = await drawingsService.getOneRandom();
-    console.log('data Fetched', data);
-    setData(data);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await drawingsService.getOneRandom();
+      console.log('data Fetched', data);
+      setData(data);
+    };
+
     fetchData().catch((err) => console.log(err));
   }, []);
 

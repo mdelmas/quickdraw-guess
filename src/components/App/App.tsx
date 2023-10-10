@@ -11,6 +11,7 @@ import './App.css';
 const App = () => {
   const dispatch = useDispatch();
   const page = useSelector((state: State) => state.page);
+
   console.log('rendering App');
 
   useEffect(() => {

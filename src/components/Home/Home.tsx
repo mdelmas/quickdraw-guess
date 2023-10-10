@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { setGame } from '@reducers/pageReducer';
+import useKeyListener from '@shared/hooks/useKeyListener';
 
 const Home = () => {
   console.log('rendering Home');
@@ -10,6 +11,8 @@ const Home = () => {
     console.log('dispatching setGame in Home');
     dispatch(setGame());
   };
+
+  useKeyListener('Enter', startGame);
 
   return (
     <div id="homePage">

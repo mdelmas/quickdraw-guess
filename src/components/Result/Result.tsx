@@ -1,5 +1,6 @@
 import { ResultType } from '@interfaces/state.interface';
 import { ROUNDS } from '@reducers/gameReducer';
+import useKeyListener from '@shared/hooks/useKeyListener';
 
 const Result = ({
   result,
@@ -12,6 +13,8 @@ const Result = ({
 }) => {
   console.log('rendering Result');
 
+  useKeyListener('Enter', continueGame);
+
   return (
     <div id="resultPage">
       {result === ResultType.SUCCESS && <h2>Success!</h2>}
@@ -21,7 +24,9 @@ const Result = ({
         {round}/{ROUNDS}
       </p>
 
-      <button onClick={continueGame}>Continue</button>
+      <form onSubmit={continueGame}>
+        <button>Continue</button>
+      </form>
     </div>
   );
 };

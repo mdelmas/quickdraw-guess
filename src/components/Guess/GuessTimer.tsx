@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const TIMER = 20;
+const TIMER = 99;
 
 function Timer({ handleTimerEnd }: { handleTimerEnd: () => void }) {
   const [time, setTime] = useState(0);
@@ -17,7 +17,19 @@ function Timer({ handleTimerEnd }: { handleTimerEnd: () => void }) {
     }
   }, [time, handleTimerEnd]);
 
-  return <h2 id="timer">{TIMER - time}</h2>;
+  const remainingTime = `${TIMER - time}`;
+
+  return (
+    <div id="timer">
+      <h2>
+        {remainingTime.split('').map((figure, index) => (
+          <span className="animated" key={`${index}-${figure}`}>
+            {figure}
+          </span>
+        ))}
+      </h2>
+    </div>
+  );
 }
 
 export default Timer;
