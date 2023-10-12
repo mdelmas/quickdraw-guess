@@ -15,9 +15,7 @@ export enum GamePhase {
 
 export type GameState = {
   phase: GamePhase;
-  round: number;
-  score: number;
-  result?: { type: ResultType };
+  results: { type: ResultType }[];
 };
 
 export type State = {

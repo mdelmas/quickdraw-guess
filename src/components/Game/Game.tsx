@@ -26,7 +26,7 @@ const Game = () => {
   }, [dispatch]);
 
   const continueGame = () => {
-    if (game.round === ROUNDS) {
+    if (game.results.length === ROUNDS) {
       return dispatch(displayTotal());
     }
     dispatch(startGuess());
@@ -37,14 +37,21 @@ const Game = () => {
     dispatch(resetGame());
   };
 
+  console.log(
+    'game results',
+    game.results,
+    game.results.length,
+    game.results[game.results.length - 1],
+  );
+
   return (
     <>
       {game.phase === GamePhase.GUESS && <Guess />}
       {game.phase === GamePhase.RESULT && (
         <Result
-          result={game.result?.type}
+          result={game.results[game.results.length - 1].type}
           continueGame={continueGame}
-          round={game.round}
+          round={game.results.length}
         />
       )}
       {game.phase === GamePhase.TOTAL && <Total endGame={endGame} />}

@@ -1,21 +1,7 @@
-import { useEffect, useState } from 'react';
+const TIMER = 20;
 
-const TIMER = 99;
-
-function Timer({ handleTimerEnd }: { handleTimerEnd: () => void }) {
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime((time) => time + 1), 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (time === TIMER) {
-      handleTimerEnd();
-    }
-  }, [time, handleTimerEnd]);
+function Timer({ time }: { time: number }) {
+  console.log('rendering Timer', time);
 
   const remainingTime = `${TIMER - time}`;
 

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import useField from '@hooks/useField';
 
 const GuessBox = ({
@@ -30,4 +32,4 @@ const GuessBox = ({
   );
 };
 
-export default GuessBox;
+export default memo(GuessBox);

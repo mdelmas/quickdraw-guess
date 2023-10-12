@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import {
   getCurrentDimension,
@@ -44,4 +44,4 @@ const Drawing = ({ rawDrawingData }: { rawDrawingData: number[][][] }) => {
   );
 };
 
-export default Drawing;
+export default memo(Drawing);

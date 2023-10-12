@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ResultType } from '@interfaces/state.interface';
@@ -12,9 +12,12 @@ import GuessBox from './GuessBox';
 
 import './Guess.css';
 
+const TIMER = 20;
+
 const Guess = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<DrawingData | null>(null);
+  const [time, setTime] = useState(0);
 
   console.log('rendering Guess', data?.word);
 
@@ -28,20 +31,28 @@ const Guess = () => {
     fetchData().catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => setTime((time) => time + 1), 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const result = useMemo(() => ({}), []);
+
+  const handleSuccess = useCallback(() => {
+    dispatch(endGuess({ ...result, type: ResultType.SUCCESS }));
+  }, [dispatch, result]);
+
+  if (time === TIMER) {
+    dispatch(endGuess({ ...result, type: ResultType.FAILURE }));
+  }
+
   if (!data) return null;
-
-  const handleTimerEnd = () => {
-    dispatch(endGuess({ result: ResultType.FAILURE }));
-  };
-
-  const handleSuccess = () => {
-    dispatch(endGuess({ result: ResultType.SUCCESS }));
-  };
 
   return (
     <div id="drawingPage">
       <div id="content">
-        <GuessTimer handleTimerEnd={handleTimerEnd} />
+        <GuessTimer time={time} />
         <GuessBox word={data.word} handleSuccess={handleSuccess} />
       </div>
       <div id="drawing">
